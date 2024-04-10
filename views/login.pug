@@ -1,0 +1,34 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1')
+  title FORM
+  link(rel='stylesheet' href='../public/css/login.css')
+header.header
+  a.logo(href='index.html')
+    | Daystar 
+    span Daycare
+  i#menu-icon.fa-solid.fa-bars
+  //
+    <nav class="navbar">
+    <a href="#home" class="active">Home</a>
+    <a href="#about">About</a>
+    <a href="#services">Services</a>
+    <a href="#testimonials">Gallery</a>
+    </nav>
+.container
+  form
+    p Welcome
+    input(type='email' placeholder='Email')
+    br
+    input(type='password' placeholder='Password')
+    br
+    input(type='button' value='LOGIN')
+    br
+  .drops
+    .drop.drop-1
+    .drop.drop-2
+    .drop.drop-3
+    .drop.drop-4
+    .drop.drop-5
+// <script src="../javascript/login.js"></script>
