@@ -1,16 +1,32 @@
 //Dependencies
 const express = require("express"); //for posting
 const mongoose = require("mongoose") //for mongodb
-const path=require("path"); //for pug
+const path=require("path"); 
+const passport = require("passport");
+const expressSession = require("express-session")({
+  secret:"secret",
+  resave:false,
+  saveUninitialized:false
+})
 
 require("dotenv").config();
 
+//import register model with user details
+const Register = require("./models/Register")
+
+
+const port = 3000;
+
+//importing routes
+const  registrationRoutes = require("./routes/babyregisterRoutes")
+const authRoutes = require("./routes/authenticationRoutes")
+const sitterRegistrationRoutes = require("./routes/sitterregisterRoutes")
 
   //Instantiations
 const app = express();
 
 //Configgurations
-mongoose.createConnection(process.env.DATABASE,{
+mongoose.connect(process.env.DATABASE,{
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
@@ -28,18 +44,30 @@ app.set("views", path.join(__dirname, "views")); //specify the directory where t
 
 
 //Middleware
+app.use(express.static(path.join(__dirname, "public"))) //set director for static files
 app.use(express.urlencoded({extended:true}))
 app.use(express.json());
 
+//Express session configurations
+app.use(expressSession);
+app.use(passport.initialize());
+app.use(passport.session());
 
+//passport configurations
+passport.use(Register.createStrategy());
+passport.serializeUser(Register.serializeUser());
+passport.deserializeUser(Register.deserializeUser());
+
+//use imported routes
+app.use("/", registrationRoutes);
+app.use("/", authRoutes);
+app.use("/", sitterRegistrationRoutes);
+// app.get("/login", (req, res) => {
+//   res.render("login")
+// });
+// app.use("/login", loginRoutes);
 
 //this is a route
-app.get("/login", (req, res) => {
-  res.render("login")
-});
-
-
-
 
 // app.get("/", (req, res) => {
 //   res.send("Homepage! Hello world.");
@@ -83,16 +111,16 @@ app.get("/login", (req, res) => {
 //   res.sendFile(__dirname + "/index.html");
 // });
 
-app.get("/registerbaby", (req, res) => {
-  res.sendFile(__dirname + "/register_baby.html");
-});
+// app.get("/registerbaby", (req, res) => {
+//   res.sendFile(__dirname + "/register_baby.html");
+// });
 
-app.post("/registerbaby", (req, res) => {
-  console.log(req.body)
-  let baby=req.body
-  // res.redirect("/index")
-  res.json({message:"baby registered",baby})
-})  
+// app.post("/registerbaby", (req, res) => {
+//   console.log(req.body)
+//   let baby=req.body
+//   // res.redirect("/index")
+//   res.json({message:"baby registered",baby})
+// })  
 
 
 
@@ -106,4 +134,4 @@ app.get("*", (req, res) => {
 
 //Bootstraping the server
 //Always the last line in code
-app.listen(3000, () => console.log("listening on port 3000"));
+app.listen(port, () => console.log(`listening on port ${port}`));

@@ -2,8 +2,8 @@ doctype html
 head
   meta(charset='UTF-8')
   meta(name='viewport' content='width=device-width, initial-scale=1')
-  title FORM
-  link(rel='stylesheet' href='../public/css/login.css')
+  title Login
+  link(rel='stylesheet' href='/css/login.css')
 header.header
   a.logo(href='index.html')
     | Daystar 
@@ -17,13 +17,13 @@ header.header
     <a href="#testimonials">Gallery</a>
     </nav>
 .container
-  form
+  form#loginform(action='/login' method='POST')
     p Welcome
-    input(type='email' placeholder='Email')
+    input(type='email' placeholder='Email' name='email')
     br
-    input(type='password' placeholder='Password')
+    input(type='password' placeholder='Password' name='password') 
     br
-    input(type='button' value='LOGIN')
+    input(type='submit' value='LOGIN') 
     br
   .drops
     .drop.drop-1

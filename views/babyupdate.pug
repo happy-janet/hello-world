@@ -1,0 +1,19 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Baby Update
+  link(rel='stylesheet' href='/css/adminregister.css')
+form(action='/sitterupdate?id='+sitter._id  method='POST')
+  label(for='babyname') Baby Name:
+  input#babyname(type='text' name='babyName' value=baby.babyName)
+  label(for='parentsname') Parents Name:
+  input#parentsname(type='text' name='parentsName' value=baby.paentsName)
+  label(for='contact') Contact:
+  input#babynumber(type='text' name=' babyNumber' value=baby.babyNumber)
+  label(for='gender') Gender:
+  select#role(name='role')
+    option(value='male' selected= sitter.gender=== 'male') Male 
+    option(value='female' selected= sitter.gender=== 'male') Female 
+    option(value='other' selected= sitter.gender=== 'male') Other 
+  input(type='submit' value='Update')

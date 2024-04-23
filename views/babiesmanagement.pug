@@ -1,0 +1,62 @@
+doctype html
+head
+  meta(charset='UTF-8')
+  meta(name='viewport' content='width=device-width, initial-scale=1.0')
+  title Babies Management
+  link(rel='stylesheet' href='babiesmanagement.css')
+header
+  header
+    nav
+      ul
+        li
+          a(href='/logout' onclick='logout()') Logout
+        li
+          a(href='procurementsmanagement.html') Procurement
+        li
+          a(href='paymentsmanagement.html') Payments
+        li
+          a(href='babiesmanagement.html') Babies
+        li
+          a(href='sittersmanagement2.html') Sitters
+        li
+          a(href='index.pug') Home
+    h1 DayStar Admin Dashboard
+main
+ a(href="/registerbaby")
+  button#happy Add Baby
+section
+h2 Registered Babies
+table
+  thead
+    tr
+      th BabiesName
+      th Gender
+      th Age
+      th Location
+      th TimeOfArrival
+      th ParentsName
+      th Amount
+      th PeriodOfStay
+      th BabyNumber
+  tbody#babies-list
+    if babies.length 
+      each baby in babies 
+        tr 
+          td #{baby.babiesName}
+          td #{baby.gender}
+          td #{baby.age}
+          td #{baby.location}
+          td #{baby.timeOfArrival}
+          td #{baby.parentsName}
+          td #{baby.amount}
+          td #{baby.periodOfStay}
+          td #{baby.babyNumber}
+          td 
+            a(href="/babyupdate/"+ baby._id) Update
+          td 
+            form(method="POST" action="/delete")
+            input(type="hidden" name="id" value=baby._id)
+            button(type="submit") Delete 
+footer
+  p &copy; 2024 DayStar Daycare Facility
+script(src='../javascript/babiesmanagement.js')
